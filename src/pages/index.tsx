@@ -4,14 +4,8 @@ import styles from './index.module.css';
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
-    [1, 1, 0, 0, 0, 0, 0, 0],
-    [2, 2, 0, 0, 0, 0, 0, 0],
-    [3, 3, 3, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0],
+    [0, 0],
   ]);
   const clickHandler = (x: number, y: number) => {};
 

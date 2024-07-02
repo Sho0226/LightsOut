@@ -11,8 +11,8 @@
 .boardstyle {
   display: flex;
   flex-wrap: wrap;
-  width: 640px;
-  height: 640px;
+  width: 50vh;
+  height: 50vh;
   background-color: green;
 }
 
@@ -20,8 +20,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
+  width: 50%;
+  height: 50%;
   border: dotted 1px;
   border-color: black;
 }
