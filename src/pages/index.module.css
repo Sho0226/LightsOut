@@ -13,7 +13,7 @@
   flex-wrap: wrap;
   width: 50vh;
   height: 50vh;
-  background-color: green;
+  background-color: #c8e6f1;
 }
 
 .cellstyle {
@@ -25,3 +25,11 @@
   border: dotted 1px;
   border-color: black;
 }
+
+/* 色 */
+
+/* #60efdb
+#bff3e7
+#c8e6f1
+#79ceed
+#6f89a2 */
