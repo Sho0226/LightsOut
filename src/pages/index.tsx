@@ -37,7 +37,7 @@ const Home = () => {
                   className={styles.colorstyle}
                   style={{
                     background:
-                      cell === 1 ? '#8de2ff' : cell === 2 ? 'rgba(141, 226, 255, 0.0)' : '#8de2ff',
+                      cell === 1 ? '#8de2ff' : cell === 2 ? 'rgb(221, 227, 233)' : '#8de2ff',
                   }}
                 />
               )}
