@@ -3,10 +3,12 @@ import styles from './index.module.css';
 
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
-  const [board, setBoard] = useState([
-    [1, 1],
-    [0, 0],
-  ]);
+  const [boardSize, setBoardSize] = useState(2);
+
+  const generateboard = (x: number, y: number, fill: number) =>
+    [...Array(y)].map(() => [...Array(x)].map(() => fill));
+
+  const [board, setBoard] = useState(generateboard(boardSize, boardSize, 0));
 
   const clickHandler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
@@ -31,12 +33,16 @@ const Home = () => {
     console.table(newBoard);
   };
 
-  const colorNum = board.flat().filter((cell) => cell !== 0).length;
-  console.log(colorNum);
+  const changeBoardSize = (size: number) => {
+    setBoardSize(size);
+    setBoard(generateboard(size, size, 0));
+    setTurnColor(1); // ターンの色をリセット
+  };
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>, size: number) => {
     console.log('Button clicked!');
     animateButton(e);
+    changeBoardSize(size);
   };
 
   const animateButton = (e: React.MouseEvent<HTMLElement>): void => {
@@ -78,24 +84,52 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <div className={styles.topstyle}>
-        <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={handleClick}>
+        <button
+          className={`${styles.navButton} ${styles.bubblyButton}`}
+          onClick={(e) => handleClick(e, 2)}
+        >
           <p>2x2</p>
         </button>
-        <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={handleClick}>
+        <button
+          className={`${styles.navButton} ${styles.bubblyButton}`}
+          onClick={(e) => handleClick(e, 3)}
+        >
           <p>3x3</p>
         </button>
-        <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={handleClick}>
+        <button
+          className={`${styles.navButton} ${styles.bubblyButton}`}
+          onClick={(e) => handleClick(e, 4)}
+        >
           <p>4x4</p>
         </button>
-        <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={handleClick}>
+        <button
+          className={`${styles.navButton} ${styles.bubblyButton}`}
+          onClick={(e) => handleClick(e, 5)}
+        >
           <p>5x5</p>
         </button>
       </div>
 
-      <div className={styles.boardstyle}>
+      <div
+        className={styles.boardstyle}
+        style={{
+          width: '50vh',
+          height: '50vh',
+          gridTemplateColumns: `repeat(${boardSize}, 1fr)`,
+          gridTemplateRows: `repeat(${boardSize}, 1fr)`,
+        }}
+      >
         {board.map((row, y) =>
           row.map((cell, x) => (
-            <div className={styles.cellstyle} key={`${x}-${y}`} onClick={() => clickHandler(x, y)}>
+            <div
+              className={styles.cellstyle}
+              key={`${x}-${y}`}
+              onClick={() => clickHandler(x, y)}
+              style={{
+                width: `${100 / boardSize}%`,
+                height: `${100 / boardSize}%`,
+              }}
+            >
               <div
                 className={styles.colorstyle}
                 style={{
