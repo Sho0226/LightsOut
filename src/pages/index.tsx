@@ -8,17 +8,30 @@ const Home = () => {
     [0, 0],
   ]);
 
-  // const directions = [
-  //   [1, 0],
-  //   [0, 1],
-  //   [-1, 0],
-  //   [0, -1],
-  // ];
+  const directions = [
+    [1, 0],
+    [0, 1],
+    [-1, 0],
+    [0, -1],
+  ];
 
   const clickHandler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
-    if (board[y] !== undefined && board[y][x] !== undefined) {
-      newBoard[y][x] = turnColor;
+    const crossDirects = [
+      [1, 0], // 右
+      [0, 1], // 下
+      [-1, 0], // 左
+      [0, -1], // 上
+    ]; // directions の例
+
+    for (const [dx, dy] of crossDirects) {
+      const newX = x + dx;
+      const newY = y + dy;
+
+      if (newBoard[newY]?.[newX] !== undefined) {
+        newBoard[y][x] = turnColor;
+        newBoard[newY][newX] = turnColor;
+      }
     }
 
     setTurnColor(3 - turnColor);

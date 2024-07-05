@@ -21,8 +21,7 @@
   justify-content: center;
   width: 50%;
   height: 50%;
-  border: dotted 1px;
-  border-color: black;
+  border: 1px solid rgb(255 255 255 / 10%);
 }
 
 .colorstyle {
