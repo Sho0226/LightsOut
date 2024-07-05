@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import styles from './index.module.css';
 
 const Home = () => {
-  const [turnColor, setTurnColor] = useState(1);
   const [boardSize, setBoardSize] = useState(2);
 
   const generateboard = (x: number, y: number, fill: number) =>
@@ -19,16 +18,19 @@ const Home = () => {
       [0, -1], // 上
     ];
 
+    // クリックされたセルの色をトグル
+    newBoard[y][x] = newBoard[y][x] === 0 ? 1 : 0;
+
+    // 隣接するセルの色をトグル
     for (const [dx, dy] of crossDirects) {
       const newX = x + dx;
       const newY = y + dy;
 
       if (newBoard[newY]?.[newX] !== undefined) {
-        [newBoard[y][x], newBoard[newY][newX]] = [turnColor, turnColor];
+        newBoard[newY][newX] = newBoard[newY][newX] === 0 ? 1 : 0;
       }
     }
 
-    setTurnColor(3 - turnColor);
     setBoard(newBoard);
     console.table(newBoard);
   };
@@ -36,7 +38,6 @@ const Home = () => {
   const changeBoardSize = (size: number) => {
     setBoardSize(size);
     setBoard(generateboard(size, size, 0));
-    setTurnColor(1); // ターンの色をリセット
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, size: number) => {
