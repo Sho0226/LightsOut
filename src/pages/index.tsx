@@ -73,7 +73,16 @@ const Home = () => {
     <div className={styles.container}>
       <div className={styles.topstyle}>
         <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={handleClick}>
-          2x2
+          <p>2x2</p>
+        </button>
+        <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={handleClick}>
+          <p>3x3</p>
+        </button>
+        <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={handleClick}>
+          <p>4x4</p>
+        </button>
+        <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={handleClick}>
+          <p>5x5</p>
         </button>
       </div>
 
