@@ -33,11 +33,18 @@ const Home = () => {
   const colorNum = board.flat().filter((cell) => cell !== 0).length;
   console.log(colorNum);
 
+  const handleClick = () => {
+    console.log('Button clicked!');
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.topstyle}>
-        <p>2×2</p>
+        <button className={styles.navButton} onClick={handleClick}>
+          2x2
+        </button>
       </div>
+
       <div className={styles.boardstyle}>
         {board.map((row, y) =>
           row.map((cell, x) => (
