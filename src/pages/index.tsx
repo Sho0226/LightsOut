@@ -29,8 +29,7 @@ const Home = () => {
       const newY = y + dy;
 
       if (newBoard[newY]?.[newX] !== undefined) {
-        newBoard[y][x] = turnColor;
-        newBoard[newY][newX] = turnColor;
+        [newBoard[y][x], newBoard[newY][newX]] = [turnColor, turnColor];
       }
     }
 
