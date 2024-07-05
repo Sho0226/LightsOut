@@ -15,7 +15,7 @@ const Home = () => {
       [0, 1], // 下
       [-1, 0], // 左
       [0, -1], // 上
-    ]; // directions の例
+    ];
 
     for (const [dx, dy] of crossDirects) {
       const newX = x + dx;
@@ -34,37 +34,43 @@ const Home = () => {
   const colorNum = board.flat().filter((cell) => cell !== 0).length;
   console.log(colorNum);
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log('Button clicked!');
+    animateButton(e);
+  };
+
+  const animateButton = (e: React.MouseEvent<HTMLElement>): void => {
+    e.preventDefault();
+
+    const target = e.currentTarget as HTMLElement;
+    // Reset animation
+    target.classList.remove(styles.animate);
+
+    // Trigger reflow to restart animation
+    void target.offsetWidth;
+
+    target.classList.add(styles.animate);
   };
 
   useEffect(() => {
-    const animateButton = (e: Event): void => {
-      e.preventDefault();
-
-      const target = e.target as HTMLElement;
-      // Reset animation
-      target.classList.remove(styles.animate);
-
-      // Trigger reflow to restart animation
-      void target.offsetWidth;
-
-      target.classList.add(styles.animate);
-      setTimeout(() => {
-        target.classList.remove(styles.animate);
-      }, 700);
-    };
-
     const bubblyButtons = document.getElementsByClassName(styles.bubblyButton);
 
     for (let i = 0; i < bubblyButtons.length; i++) {
-      bubblyButtons[i].addEventListener('click', animateButton, false);
+      bubblyButtons[i].addEventListener(
+        'click',
+        (e) => animateButton(e as unknown as React.MouseEvent<HTMLElement>),
+        false,
+      );
     }
 
     // Cleanup event listeners on component unmount
     return () => {
       for (let i = 0; i < bubblyButtons.length; i++) {
-        bubblyButtons[i].removeEventListener('click', animateButton, false);
+        bubblyButtons[i].removeEventListener(
+          'click',
+          (e) => animateButton(e as unknown as React.MouseEvent<HTMLElement>),
+          false,
+        );
       }
     };
   }, []);

@@ -37,10 +37,14 @@
   border-top: solid 10px #60efdb;
 }
 
+.topstyle p {
+  padding: 0;
+  margin: 0;
+}
+
 .navButton {
-  padding: 0.5em 1em;
+  padding: 1em 2em;
   font: inherit;
-  font-size: 120%;
   color: #6f89a2;
   text-decoration: underline;
   cursor: pointer;
@@ -69,20 +73,18 @@
 .bubblyButton::before,
 .bubblyButton::after {
   position: absolute;
-  left: 50%; /* 左右の中央に配置 */
-  z-index: 1; /* バブルが前面に出るように z-index を調整 */
+  left: -20%;
+  z-index: 1;
   display: block;
-  width: 100%; /* ボタンサイズに一致させる */
-  height: 100%; /* ボタンサイズに一致させる */
-  pointer-events: none; /* クリックイベントを無視 */
+  width: 140%;
+  height: 100%;
   content: '';
   background-repeat: no-repeat;
   transition: all ease-in-out 0.5s;
-  transform: translateX(-50%); /* 水平方向に中央揃え */
 }
 
 .bubblyButton::before {
-  top: 50%; /* 上下の中央に配置 */
+  top: -75%;
   display: none;
   background-image: radial-gradient(circle, #60efdb 20%, transparent 20%),
     radial-gradient(circle, transparent 20%, #60efdb 20%, transparent 30%),
@@ -103,11 +105,10 @@
     15% 15%,
     10% 10%,
     18% 18%;
-  transform: translate(-50%, -50%); /* 中央揃え */
 }
 
 .bubblyButton::after {
-  top: 50%; /* 上下の中央に配置 */
+  bottom: -75%;
   display: none;
   background-image: radial-gradient(circle, #60efdb 20%, transparent 20%),
     radial-gradient(circle, #60efdb 20%, transparent 20%),
@@ -124,7 +125,6 @@
     15% 15%,
     10% 10%,
     20% 20%;
-  transform: translate(-50%, -50%); /* 中央揃え */
 }
 
 .animate::before {
