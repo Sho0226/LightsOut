@@ -29,6 +29,19 @@
   height: 100%;
 }
 
+.topstyle {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #6f89a2;
+  background: #ffebe9;
+  border-top: solid 10px #60efdb;
+}
+
+.topstyle p {
+  padding: 0;
+  margin: 0;
+}
+
 /* 色 */
 
 /* #60efdb

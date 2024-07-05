@@ -30,11 +30,14 @@ const Home = () => {
     setBoard(newBoard);
     console.table(newBoard);
   };
-  // const colorNum = board.flat().filter((cell) => cell !== 0).length;
-  // console.log(colorNum);
+  const colorNum = board.flat().filter((cell) => cell !== 0).length;
+  console.log(colorNum);
 
   return (
     <div className={styles.container}>
+      <div className={styles.topstyle}>
+        <p>2×2</p>
+      </div>
       <div className={styles.boardstyle}>
         {board.map((row, y) =>
           row.map((cell, x) => (
