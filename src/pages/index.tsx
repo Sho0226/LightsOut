@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './index.module.css';
 
 const Home = () => {
@@ -30,6 +30,7 @@ const Home = () => {
     setBoard(newBoard);
     console.table(newBoard);
   };
+
   const colorNum = board.flat().filter((cell) => cell !== 0).length;
   console.log(colorNum);
 
@@ -37,10 +38,41 @@ const Home = () => {
     console.log('Button clicked!');
   };
 
+  useEffect(() => {
+    const animateButton = (e: Event): void => {
+      e.preventDefault();
+
+      const target = e.target as HTMLElement;
+      // Reset animation
+      target.classList.remove(styles.animate);
+
+      // Trigger reflow to restart animation
+      void target.offsetWidth;
+
+      target.classList.add(styles.animate);
+      setTimeout(() => {
+        target.classList.remove(styles.animate);
+      }, 700);
+    };
+
+    const bubblyButtons = document.getElementsByClassName(styles.bubblyButton);
+
+    for (let i = 0; i < bubblyButtons.length; i++) {
+      bubblyButtons[i].addEventListener('click', animateButton, false);
+    }
+
+    // Cleanup event listeners on component unmount
+    return () => {
+      for (let i = 0; i < bubblyButtons.length; i++) {
+        bubblyButtons[i].removeEventListener('click', animateButton, false);
+      }
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.topstyle}>
-        <button className={styles.navButton} onClick={handleClick}>
+        <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={handleClick}>
           2x2
         </button>
       </div>
