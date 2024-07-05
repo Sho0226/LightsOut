@@ -3,7 +3,6 @@ import styles from './index.module.css';
 
 const Home = () => {
   const [boardSize, setBoardSize] = useState(2);
-
   const generateboard = (x: number, y: number, fill: number) =>
     [...Array(y)].map(() => [...Array(x)].map(() => fill));
 
@@ -18,10 +17,8 @@ const Home = () => {
       [0, -1], // 上
     ];
 
-    // クリックされたセルの色をトグル
     newBoard[y][x] = newBoard[y][x] === 0 ? 1 : 0;
 
-    // 隣接するセルの色をトグル
     for (const [dx, dy] of crossDirects) {
       const newX = x + dx;
       const newY = y + dy;
@@ -48,14 +45,9 @@ const Home = () => {
 
   const animateButton = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
-
     const target = e.currentTarget as HTMLElement;
-    // Reset animation
-    target.classList.remove(styles.animate);
-
-    // Trigger reflow to restart animation
-    void target.offsetWidth;
-
+    target.classList.remove(styles.animate); // Reset animation
+    void target.offsetWidth; // Trigger reflow to restart animation
     target.classList.add(styles.animate);
   };
 
