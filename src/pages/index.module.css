@@ -17,10 +17,12 @@
 }
 
 .navButton {
+  width: 8rem; /* ボタンの固定幅を設定 */
   padding: 0.5em 1em;
   font: inherit;
   font-size: 120%;
   color: #6f89a2;
+  text-align: center; /* テキストを中央揃え */
   text-decoration: underline;
   cursor: pointer;
   background: none;
@@ -43,6 +45,40 @@
   flex-wrap: wrap;
   width: 70vh;
   height: 70vh;
+  border: 5px solid transparent; /* ボーダーの初期状態 */
+}
+
+.boardstyle.cleared {
+  animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    border-color: #60efdb;
+    box-shadow: 0 0 20px #60efdb;
+  }
+
+  to {
+    border-color: #ffc1cc;
+    box-shadow: 0 0 20px #ffc1cc;
+  }
+}
+
+.clearMessage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: none;
+  padding: 1rem 2rem;
+  font-size: 2rem;
+  color: #ff4c65;
+  background: rgb(255 255 255 / 80%);
+  border-radius: 5px;
+  transform: translate(-50%, -50%);
+}
+
+.clearMessage.show {
+  display: block;
 }
 
 .cellstyle {

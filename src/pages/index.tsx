@@ -3,12 +3,14 @@ import styles from './index.module.css';
 
 const Home = () => {
   const [boardSize, setBoardSize] = useState(2);
-  const generateboard = (x: number, y: number, fill: number) =>
-    [...Array(y)].map(() => [...Array(x)].map(() => fill));
+  const [isCleared, setIsCleared] = useState(false);
+  const generateBoard = (x: number, y: number, fill: number) =>
+    Array.from({ length: y }, () => Array.from({ length: x }, () => fill));
 
-  const [board, setBoard] = useState(generateboard(boardSize, boardSize, 0));
+  const [board, setBoard] = useState<number[][]>(generateBoard(boardSize, boardSize, 0));
 
   const clickHandler = (x: number, y: number) => {
+    if (isCleared) return;
     const newBoard = structuredClone(board);
     const crossDirects = [
       [1, 0], // 右
@@ -30,22 +32,29 @@ const Home = () => {
 
     setBoard(newBoard);
     console.table(newBoard);
+
+    if (isBoardCleared(newBoard)) {
+      setIsCleared(true);
+    }
   };
 
   const changeBoardSize = (size: number) => {
     setBoardSize(size);
-    setBoard(generateboard(size, size, 0));
+    setBoard(generateBoard(size, size, 0));
+    setIsCleared(false);
   };
 
   const resetBoard = () => {
-    setBoard(generateboard(boardSize, boardSize, 0));
+    setBoard(generateBoard(boardSize, boardSize, 0));
+    setIsCleared(false);
   };
 
   const randomizeBoard = () => {
-    const newBoard = generateboard(boardSize, boardSize, 0).map((row) =>
+    const newBoard = generateBoard(boardSize, boardSize, 0).map((row) =>
       row.map(() => Math.round(Math.random())),
     );
     setBoard(newBoard);
+    setIsCleared(false);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, size: number) => {
@@ -55,7 +64,7 @@ const Home = () => {
 
   const animateButton = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
-    const target = e.currentTarget as HTMLElement;
+    const target = e.currentTarget;
     target.classList.remove(styles.animate); // Reset animation
     void target.offsetWidth; // Trigger reflow to restart animation
     target.classList.add(styles.animate);
@@ -121,7 +130,7 @@ const Home = () => {
           <p>Reset</p>
         </button>
 
-        <div className={styles.boardstyle}>
+        <div className={`${styles.boardstyle} ${isCleared ? styles.cleared : ''}`}>
           {board.map((row, y) =>
             row.map((cell, x) => (
               <div
@@ -150,9 +159,15 @@ const Home = () => {
         >
           <p>Random</p>
         </button>
+
+        <div className={`${styles.clearMessage} ${isCleared ? styles.show : ''}`}>Cleared!</div>
       </div>
     </div>
   );
+};
+
+const isBoardCleared = (board: number[][]) => {
+  return board.every((row) => row.every((cell) => cell === 1));
 };
 
 export default Home;
