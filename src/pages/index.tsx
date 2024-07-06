@@ -111,35 +111,45 @@ const Home = () => {
         >
           <p>5x5</p>
         </button>
-        <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={resetBoard}>
-          <p>Reset</p>
-        </button>
-        <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={randomizeBoard}>
-          <p>Randomize</p>
-        </button>
       </div>
 
-      <div className={styles.boardstyle}>
-        {board.map((row, y) =>
-          row.map((cell, x) => (
-            <div
-              className={styles.cellstyle}
-              key={`${x}-${y}`}
-              onClick={() => clickHandler(x, y)}
-              style={{
-                width: `${100 / boardSize}%`,
-                height: `${100 / boardSize}%`,
-              }}
-            >
+      <div className={styles.boardContainer}>
+        <button
+          className={`${styles.navButton} ${styles.bubblyButton} ${styles.resetButton}`}
+          onClick={resetBoard}
+        >
+          <p>Reset</p>
+        </button>
+
+        <div className={styles.boardstyle}>
+          {board.map((row, y) =>
+            row.map((cell, x) => (
               <div
-                className={styles.colorstyle}
+                className={styles.cellstyle}
+                key={`${x}-${y}`}
+                onClick={() => clickHandler(x, y)}
                 style={{
-                  background: cell === 1 ? '#8de2ff' : 'rgb(221, 227, 233)',
+                  width: `${100 / boardSize}%`,
+                  height: `${100 / boardSize}%`,
                 }}
-              />
-            </div>
-          )),
-        )}
+              >
+                <div
+                  className={styles.colorstyle}
+                  style={{
+                    background: cell === 1 ? '#8de2ff' : 'rgb(221, 227, 233)',
+                  }}
+                />
+              </div>
+            )),
+          )}
+        </div>
+
+        <button
+          className={`${styles.navButton} ${styles.bubblyButton} ${styles.randomizeButton}`}
+          onClick={randomizeBoard}
+        >
+          <p>Random</p>
+        </button>
       </div>
     </div>
   );
