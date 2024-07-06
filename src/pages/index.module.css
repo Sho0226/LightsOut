@@ -9,7 +9,7 @@
 }
 
 .topstyle {
-  padding: 0.5em 1em;
+  padding: 0.5em;
   margin: 1em;
   color: #6f89a2;
   background: #ffebe9;
@@ -309,5 +309,111 @@
       0% 0%,
       0% 0%,
       0% 0%;
+  }
+}
+
+/* Responsive Design */
+@media (width <= 768px) {
+  .boardstyle {
+    width: 50vh;
+    height: 50vh;
+  }
+
+  .navButton {
+    width: 5.5rem;
+    font-size: 100%;
+  }
+
+  .randomButton,
+  .resetButton,
+  .undoButton {
+    padding: 0.4em 0.8em;
+    margin: 0.2em 0.5em;
+    font-size: 90%;
+  }
+
+  .clearMessage {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.5rem;
+  }
+}
+
+@media (width <= 480px) {
+  .boardstyle {
+    width: 40vh;
+    height: 40vh;
+  }
+
+  .navButton {
+    width: 4rem;
+    font-size: 80%;
+  }
+
+  .randomButton,
+  .resetButton,
+  .undoButton {
+    padding: 0.3em 0.6em;
+    margin: 0.1em 0.4em;
+    font-size: 80%;
+  }
+
+  .clearMessage {
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media (aspect-ratio <= 1/1) {
+  .container {
+    flex-direction: column;
+  }
+
+  .topstyle {
+    order: 1;
+    margin-bottom: 1em;
+  }
+
+  .boardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    order: 2;
+  }
+
+  .boardstyle {
+    margin-bottom: 1em;
+  }
+
+  .leftContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    order: 3;
+    width: 100%;
+  }
+
+  .rightContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    order: 4;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .randomButton,
+  .resetButton,
+  .undoButton {
+    flex-grow: 1;
+    margin: 0.2em;
+  }
+
+  .randomButton {
+    border-bottom: transparent;
+  }
+
+  .resetButton,
+  .undoButton {
+    border-top: transparent;
   }
 }
