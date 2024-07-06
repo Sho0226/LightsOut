@@ -5,7 +5,7 @@
   justify-content: center;
   height: 100vh;
   min-height: 100vh;
-  padding: 0 0.5rem;
+  padding: 0.5rem;
 }
 
 .topstyle {
@@ -17,12 +17,12 @@
 }
 
 .navButton {
-  width: 8rem; /* ボタンの固定幅を設定 */
+  width: 8rem;
   padding: 0.5em 1em;
   font: inherit;
   font-size: 120%;
   color: #6f89a2;
-  text-align: center; /* テキストを中央揃え */
+  text-align: center;
   text-decoration: underline;
   cursor: pointer;
   background: none;
@@ -33,7 +33,6 @@
   text-decoration: none;
 }
 
-/* ボードコンテナのスタイル */
 .boardContainer {
   position: relative;
   display: flex;
@@ -45,7 +44,7 @@
   flex-wrap: wrap;
   width: 70vh;
   height: 70vh;
-  border: 5px solid transparent; /* ボーダーの初期状態 */
+  border: 5px solid transparent;
 }
 
 .boardstyle.cleared {
@@ -54,8 +53,8 @@
 
 @keyframes glow {
   from {
-    border-color: #60efdb;
-    box-shadow: 0 0 20px #60efdb;
+    border-color: var(--bubble-color);
+    box-shadow: 0 0 20px var(--bubble-color);
   }
 
   to {
@@ -71,9 +70,15 @@
   display: none;
   padding: 1rem 2rem;
   font-size: 2rem;
-  color: #8de2ff;
+  color: var(--bubble-color);
+  text-shadow:
+    -0.5px -0.5px 0 #000,
+    0.5px -0.5px 0 #000,
+    -0.5px 0.5px 0 #000,
+    0.5px 0.5px 0 #000; /* 輪郭を細く */
+
   background: rgb(255 255 255 / 85%);
-  border: 2px solid #60efdb; /* ティール色のボーダー */
+  border: 2px solid var(--bubble-color);
   transform: translate(-50%, -50%);
 }
 
@@ -93,7 +98,6 @@
   height: 100%;
 }
 
-/* リセットボタンとランダムボタンの位置調整 */
 .resetButton {
   padding: 0.5em 1em;
   margin: 1em;
@@ -114,7 +118,6 @@
   border-bottom: solid 10px #ffc1cc;
 }
 
-/* アニメーション用のスタイル */
 .bubblyButton {
   position: relative;
   font-family: Helvetica, Arial, sans-serif;
@@ -131,30 +134,30 @@
 .bubblyButton::before,
 .bubblyButton::after {
   position: absolute;
-  left: 50%; /* 左右の中央に配置 */
-  z-index: 1; /* バブルが前面に出るように z-index を調整 */
+  left: 50%;
+  z-index: 1;
   display: block;
-  width: 100%; /* ボタンサイズに一致させる */
-  height: 100%; /* ボタンサイズに一致させる */
-  pointer-events: none; /* クリックイベントを無視 */
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
   content: '';
   background-repeat: no-repeat;
   transition: all ease-in-out 0.5s;
-  transform: translateX(-50%); /* 水平方向に中央揃え */
+  transform: translateX(-50%);
 }
 
 .bubblyButton::before {
-  top: 50%; /* 上下の中央に配置 */
+  top: 50%;
   display: none;
-  background-image: radial-gradient(circle, #60efdb 20%, transparent 20%),
-    radial-gradient(circle, transparent 20%, #60efdb 20%, transparent 30%),
-    radial-gradient(circle, #60efdb 20%, transparent 20%),
-    radial-gradient(circle, #60efdb 20%, transparent 20%),
-    radial-gradient(circle, transparent 10%, #60efdb 15%, transparent 20%),
-    radial-gradient(circle, #60efdb 20%, transparent 20%),
-    radial-gradient(circle, #60efdb 20%, transparent 20%),
-    radial-gradient(circle, #60efdb 20%, transparent 20%),
-    radial-gradient(circle, #60efdb 20%, transparent 20%);
+  background-image: radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
+    radial-gradient(circle, transparent 20%, var(--bubble-color) 20%, transparent 30%),
+    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
+    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, var(--bubble-color) 15%, transparent 20%),
+    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
+    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
+    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
+    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%);
   background-size:
     10% 10%,
     20% 20%,
@@ -165,18 +168,18 @@
     15% 15%,
     10% 10%,
     18% 18%;
-  transform: translate(-50%, -50%); /* 中央揃え */
+  transform: translate(-50%, -50%);
 }
 
 .bubblyButton::after {
-  top: 50%; /* 上下の中央に配置 */
+  top: 50%;
   display: none;
-  background-image: radial-gradient(circle, #60efdb 20%, transparent 20%),
-    radial-gradient(circle, #60efdb 20%, transparent 20%),
-    radial-gradient(circle, transparent 10%, #60efdb 15%, transparent 20%),
-    radial-gradient(circle, #60efdb 20%, transparent 20%),
-    radial-gradient(circle, #60efdb 20%, transparent 20%),
-    radial-gradient(circle, #60efdb 20%, transparent 20%);
+  background-image: radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
+    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, var(--bubble-color) 15%, transparent 20%),
+    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
+    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
+    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%);
   background-size:
     15% 15%,
     20% 20%,
@@ -185,7 +188,7 @@
     15% 15%,
     10% 10%,
     20% 20%;
-  transform: translate(-50%, -50%); /* 中央揃え */
+  transform: translate(-50%, -50%);
 }
 
 .animate::before {
@@ -279,7 +282,6 @@
       95% 70%,
       110% 10%;
     background-size:
-      0% 0%,
       0% 0%,
       0% 0%,
       0% 0%,

@@ -69,25 +69,31 @@ const Home = () => {
   };
 
   const changeBoardSize = (size: number) => {
+    const color = getRandomColor();
     setBoardSize(size);
     setBoard(generateBoard(size, size, 0));
     setIsCleared(false);
-    setCellColor(getRandomColor());
+    setCellColor(color);
+    document.documentElement.style.setProperty('--bubble-color', color);
   };
 
   const resetBoard = () => {
+    const color = getRandomColor();
     setBoard(generateBoard(boardSize, boardSize, 0));
     setIsCleared(false);
-    setCellColor(getRandomColor());
+    setCellColor(color);
+    document.documentElement.style.setProperty('--bubble-color', color);
   };
 
   const randomizeBoard = () => {
+    const color = getRandomColor();
     const newBoard = generateBoard(boardSize, boardSize, 0).map((row) =>
       row.map(() => Math.round(Math.random())),
     );
     setBoard(newBoard);
     setIsCleared(false);
-    setCellColor(getRandomColor());
+    setCellColor(color);
+    document.documentElement.style.setProperty('--bubble-color', color);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, size: number) => {
