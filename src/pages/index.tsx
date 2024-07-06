@@ -37,8 +37,18 @@ const Home = () => {
     setBoard(generateboard(size, size, 0));
   };
 
+  const resetBoard = () => {
+    setBoard(generateboard(boardSize, boardSize, 0));
+  };
+
+  const randomizeBoard = () => {
+    const newBoard = generateboard(boardSize, boardSize, 0).map((row) =>
+      row.map(() => Math.round(Math.random())),
+    );
+    setBoard(newBoard);
+  };
+
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, size: number) => {
-    console.log('Button clicked!');
     animateButton(e);
     changeBoardSize(size);
   };
@@ -100,6 +110,12 @@ const Home = () => {
           onClick={(e) => handleClick(e, 5)}
         >
           <p>5x5</p>
+        </button>
+        <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={resetBoard}>
+          <p>Reset</p>
+        </button>
+        <button className={`${styles.navButton} ${styles.bubblyButton}`} onClick={randomizeBoard}>
+          <p>Randomize</p>
         </button>
       </div>
 
