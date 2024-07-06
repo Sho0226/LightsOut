@@ -103,15 +103,7 @@ const Home = () => {
         </button>
       </div>
 
-      <div
-        className={styles.boardstyle}
-        style={{
-          width: '50vh',
-          height: '50vh',
-          gridTemplateColumns: `repeat(${boardSize}, 1fr)`,
-          gridTemplateRows: `repeat(${boardSize}, 1fr)`,
-        }}
-      >
+      <div className={styles.boardstyle}>
         {board.map((row, y) =>
           row.map((cell, x) => (
             <div

@@ -11,8 +11,8 @@
 .boardstyle {
   display: flex;
   flex-wrap: wrap;
-  width: 50vh;
-  height: 50vh;
+  width: 70vh;
+  height: 70vh;
 }
 
 .cellstyle {
@@ -29,7 +29,7 @@
 
 .topstyle {
   padding: 0.5em 1em;
-  margin: 2em 0;
+  margin: 1em;
   color: #6f89a2;
   background: #ffebe9;
   border-top: solid 10px #60efdb;
