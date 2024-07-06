@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react';
 import styles from './index.module.css';
 
+// generateRandomBoard関数をコンポーネントの外に移動
+const generateRandomBoard = (size: number): number[][] => {
+  return Array.from({ length: size }, () =>
+    Array.from({ length: size }, () => Math.round(Math.random())),
+  );
+};
+
 const Home = () => {
   const [boardSize, setBoardSize] = useState(2);
   const [isCleared, setIsCleared] = useState(false);
   const [cellColor, setCellColor] = useState('#8de2ff');
+  const [randomBoard, setRandomBoard] = useState<number[][]>(generateRandomBoard(boardSize));
 
   const pastelColors = [
     '#ffadad',
@@ -24,7 +32,6 @@ const Home = () => {
     '#e2c2c6',
     '#c0deff',
     '#f2d5f8',
-    '#d5e8f2',
     '#e5c9f2',
     '#c9f2d5',
   ];
@@ -38,6 +45,7 @@ const Home = () => {
     Array.from({ length: y }, () => Array.from({ length: x }, () => fill));
 
   const [board, setBoard] = useState<number[][]>(generateBoard(boardSize, boardSize, 0));
+  const [history, setHistory] = useState<number[][][]>([]);
 
   const clickHandler = (x: number, y: number) => {
     if (isCleared) return;
@@ -59,7 +67,7 @@ const Home = () => {
         newBoard[newY][newX] = newBoard[newY][newX] === 0 ? 1 : 0;
       }
     }
-
+    setHistory([...history, board]);
     setBoard(newBoard);
     console.table(newBoard);
 
@@ -68,12 +76,22 @@ const Home = () => {
     }
   };
 
+  const undo = () => {
+    if (history.length > 0) {
+      const lastBoard = history[history.length - 1];
+      setHistory(history.slice(0, history.length - 1)); // 履歴から最後の状態を削除
+      setBoard(lastBoard);
+    }
+  };
+
   const changeBoardSize = (size: number) => {
     const color = getRandomColor();
+    const newRandomBoard = generateRandomBoard(size);
     setBoardSize(size);
     setBoard(generateBoard(size, size, 0));
     setIsCleared(false);
     setCellColor(color);
+    setRandomBoard(newRandomBoard);
     document.documentElement.style.setProperty('--bubble-color', color);
   };
 
@@ -87,13 +105,17 @@ const Home = () => {
 
   const randomizeBoard = () => {
     const color = getRandomColor();
-    const newBoard = generateBoard(boardSize, boardSize, 0).map((row) =>
-      row.map(() => Math.round(Math.random())),
-    );
+    const newBoard = generateRandomBoard(boardSize);
     setBoard(newBoard);
+    setRandomBoard(newBoard); // ここでランダムボードを保存
     setIsCleared(false);
     setCellColor(color);
     document.documentElement.style.setProperty('--bubble-color', color);
+  };
+
+  const applyRandomBoard = () => {
+    setBoard(structuredClone(randomBoard));
+    setIsCleared(false);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, size: number) => {
@@ -159,15 +181,29 @@ const Home = () => {
         >
           <p>5x5</p>
         </button>
+        <button
+          className={`${styles.navButton} ${styles.bubblyButton}`}
+          onClick={(e) => handleClick(e, 6)}
+        >
+          <p>6x6</p>
+        </button>
       </div>
 
       <div className={styles.boardContainer}>
-        <button
-          className={`${styles.navButton} ${styles.bubblyButton} ${styles.resetButton}`}
-          onClick={resetBoard}
-        >
-          <p>Reset</p>
-        </button>
+        <div className={styles.leftContainer}>
+          <button
+            className={`${styles.navButton} ${styles.bubblyButton} ${styles.randomButton}`}
+            onClick={randomizeBoard}
+          >
+            <p>Next Random</p>
+          </button>
+          <button
+            className={`${styles.navButton} ${styles.bubblyButton} ${styles.randomButton}`}
+            onClick={applyRandomBoard}
+          >
+            <p>Reset Random</p>
+          </button>
+        </div>
 
         <div className={`${styles.boardstyle} ${isCleared ? styles.cleared : ''}`}>
           {board.map((row, y) =>
@@ -192,12 +228,20 @@ const Home = () => {
           )}
         </div>
 
-        <button
-          className={`${styles.navButton} ${styles.bubblyButton} ${styles.randomizeButton}`}
-          onClick={randomizeBoard}
-        >
-          <p>Random</p>
-        </button>
+        <div className={styles.rightContainer}>
+          <button
+            className={`${styles.navButton} ${styles.bubblyButton} ${styles.undoButton}`}
+            onClick={undo}
+          >
+            <p>Return</p>
+          </button>
+          <button
+            className={`${styles.navButton} ${styles.bubblyButton} ${styles.resetButton}`}
+            onClick={resetBoard}
+          >
+            <p>Reset</p>
+          </button>
+        </div>
 
         <div className={`${styles.clearMessage} ${isCleared ? styles.show : ''}`}>Cleared!</div>
       </div>

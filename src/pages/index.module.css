@@ -13,7 +13,7 @@
   margin: 1em;
   color: #6f89a2;
   background: #ffebe9;
-  border-top: solid 10px #60efdb;
+  border-top: solid 10px var(--bubble-color);
 }
 
 .navButton {
@@ -37,6 +37,16 @@
   position: relative;
   display: flex;
   justify-content: center;
+}
+
+.randomButton {
+  flex-grow: 1;
+  padding: 0.5em 1em;
+  margin: 0.4em 1em;
+  color: #ff7f91;
+  background: #ffebe9;
+  border-top: solid 10px #ffc1cc;
+  border-bottom: solid 10px #ffc1cc;
 }
 
 .boardstyle {
@@ -75,8 +85,7 @@
     -0.5px -0.5px 0 #000,
     0.5px -0.5px 0 #000,
     -0.5px 0.5px 0 #000,
-    0.5px 0.5px 0 #000; /* 輪郭を細く */
-
+    0.5px 0.5px 0 #000;
   background: rgb(255 255 255 / 85%);
   border: 2px solid var(--bubble-color);
   transform: translate(-50%, -50%);
@@ -99,23 +108,35 @@
 }
 
 .resetButton {
+  flex-grow: 1;
   padding: 0.5em 1em;
-  margin: 1em;
-  margin-right: 2rem;
+  margin: 0.4em 1em;
   color: #ff7f91;
   background: #ffebe9;
   border-top: solid 10px #ffc1cc;
   border-bottom: solid 10px #ffc1cc;
 }
 
-.randomizeButton {
+.undoButton {
+  flex-grow: 1;
   padding: 0.5em 1em;
-  margin: 1em;
-  margin-left: 2rem;
+  margin: 0.4em 1em;
   color: #ff7f91;
   background: #ffebe9;
   border-top: solid 10px #ffc1cc;
   border-bottom: solid 10px #ffc1cc;
+}
+
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .bubblyButton {
@@ -149,15 +170,15 @@
 .bubblyButton::before {
   top: 50%;
   display: none;
-  background-image: radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
-    radial-gradient(circle, transparent 20%, var(--bubble-color) 20%, transparent 30%),
-    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
-    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
-    radial-gradient(circle, transparent 10%, var(--bubble-color) 15%, transparent 20%),
-    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
-    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
-    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
-    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%);
+  background-image: radial-gradient(circle, #60efdb 20%, transparent 20%),
+    radial-gradient(circle, transparent 20%, #60efdb 20%, transparent 30%),
+    radial-gradient(circle, #60efdb 20%, transparent 20%),
+    radial-gradient(circle, #60efdb 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #60efdb 15%, transparent 20%),
+    radial-gradient(circle, #60efdb 20%, transparent 20%),
+    radial-gradient(circle, #60efdb 20%, transparent 20%),
+    radial-gradient(circle, #60efdb 20%, transparent 20%),
+    radial-gradient(circle, #60efdb 20%, transparent 20%);
   background-size:
     10% 10%,
     20% 20%,
@@ -174,12 +195,12 @@
 .bubblyButton::after {
   top: 50%;
   display: none;
-  background-image: radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
-    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
-    radial-gradient(circle, transparent 10%, var(--bubble-color) 15%, transparent 20%),
-    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
-    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%),
-    radial-gradient(circle, var(--bubble-color) 20%, transparent 20%);
+  background-image: radial-gradient(circle, #60efdb 20%, transparent 20%),
+    radial-gradient(circle, #60efdb 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #60efdb 15%, transparent 20%),
+    radial-gradient(circle, #60efdb 20%, transparent 20%),
+    radial-gradient(circle, #60efdb 20%, transparent 20%),
+    radial-gradient(circle, #60efdb 20%, transparent 20%);
   background-size:
     15% 15%,
     20% 20%,
@@ -282,6 +303,7 @@
       95% 70%,
       110% 10%;
     background-size:
+      0% 0%,
       0% 0%,
       0% 0%,
       0% 0%,
