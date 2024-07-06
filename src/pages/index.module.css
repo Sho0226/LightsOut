@@ -71,9 +71,9 @@
   display: none;
   padding: 1rem 2rem;
   font-size: 2rem;
-  color: #ff4c65;
-  background: rgb(255 255 255 / 80%);
-  border-radius: 5px;
+  color: #8de2ff;
+  background: rgb(255 255 255 / 85%);
+  border: 2px solid #60efdb; /* ティール色のボーダー */
   transform: translate(-50%, -50%);
 }
 
