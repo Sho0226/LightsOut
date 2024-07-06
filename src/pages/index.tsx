@@ -4,6 +4,36 @@ import styles from './index.module.css';
 const Home = () => {
   const [boardSize, setBoardSize] = useState(2);
   const [isCleared, setIsCleared] = useState(false);
+  const [cellColor, setCellColor] = useState('#8de2ff');
+
+  const pastelColors = [
+    '#ffadad',
+    '#ffd6a5',
+    '#fdffb6',
+    '#caffbf',
+    '#9bf6ff',
+    '#a0c4ff',
+    '#bdb2ff',
+    '#ffc6ff',
+    '#ffb3ba',
+    '#ffdfba',
+    '#ffffba',
+    '#baffc9',
+    '#bae1ff',
+    '#f3b5a9',
+    '#e2c2c6',
+    '#c0deff',
+    '#f2d5f8',
+    '#d5e8f2',
+    '#e5c9f2',
+    '#c9f2d5',
+  ];
+
+  const getRandomColor = () => {
+    const randomIndex = Math.floor(Math.random() * pastelColors.length);
+    return pastelColors[randomIndex];
+  };
+
   const generateBoard = (x: number, y: number, fill: number) =>
     Array.from({ length: y }, () => Array.from({ length: x }, () => fill));
 
@@ -42,11 +72,13 @@ const Home = () => {
     setBoardSize(size);
     setBoard(generateBoard(size, size, 0));
     setIsCleared(false);
+    setCellColor(getRandomColor());
   };
 
   const resetBoard = () => {
     setBoard(generateBoard(boardSize, boardSize, 0));
     setIsCleared(false);
+    setCellColor(getRandomColor());
   };
 
   const randomizeBoard = () => {
@@ -55,6 +87,7 @@ const Home = () => {
     );
     setBoard(newBoard);
     setIsCleared(false);
+    setCellColor(getRandomColor());
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, size: number) => {
@@ -145,7 +178,7 @@ const Home = () => {
                 <div
                   className={styles.colorstyle}
                   style={{
-                    background: cell === 1 ? '#8de2ff' : 'rgb(221, 227, 233)',
+                    background: cell === 1 ? cellColor : 'rgb(221, 227, 233)',
                   }}
                 />
               </div>
