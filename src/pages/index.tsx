@@ -77,6 +77,7 @@ const Home = () => {
   };
 
   const undo = () => {
+    if (isCleared) return;
     if (history.length > 0) {
       const lastBoard = history[history.length - 1];
       setHistory(history.slice(0, history.length - 1)); // 履歴から最後の状態を削除
