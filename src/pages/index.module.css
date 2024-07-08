@@ -9,9 +9,12 @@
 }
 
 .topstyle {
+  width: 50%;
   padding: 0.5em;
   margin: 1em;
+  overflow-x: auto;
   color: #6f89a2;
+  white-space: nowrap;
   background: #ffebe9;
   border-top: solid 10px var(--bubble-color);
 }

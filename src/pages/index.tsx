@@ -188,8 +188,31 @@ const Home = () => {
         >
           <p>6x6</p>
         </button>
+        <button
+          className={`${styles.navButton} ${styles.bubblyButton}`}
+          onClick={(e) => handleClick(e, 7)}
+        >
+          <p>7x7</p>
+        </button>
+        <button
+          className={`${styles.navButton} ${styles.bubblyButton}`}
+          onClick={(e) => handleClick(e, 8)}
+        >
+          <p>8x8</p>
+        </button>
+        <button
+          className={`${styles.navButton} ${styles.bubblyButton}`}
+          onClick={(e) => handleClick(e, 9)}
+        >
+          <p>9x9</p>
+        </button>
+        <button
+          className={`${styles.navButton} ${styles.bubblyButton}`}
+          onClick={(e) => handleClick(e, 10)}
+        >
+          <p>10x10</p>
+        </button>
       </div>
-
       <div className={styles.boardContainer}>
         <div className={styles.leftContainer}>
           <button
