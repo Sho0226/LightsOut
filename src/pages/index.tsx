@@ -227,6 +227,12 @@ const Home = () => {
         >
           <p>10x10</p>
         </button>
+        <button
+          className={`${styles.navButton} ${styles.bubblyButton}`}
+          onClick={(e) => handleClick(e, 100)}
+        >
+          <p>100x100</p>
+        </button>
       </div>
       <div className={styles.boardContainer}>
         <div className={styles.leftContainer}>
