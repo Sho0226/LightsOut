@@ -8,11 +8,47 @@ const generateRandomBoard = (size: number): number[][] => {
   );
 };
 
+// 逆操作を行って解を求める
+const generateSolvableBoard = (size: number): number[][] => {
+  const board = Array.from({ length: size }, () => Array(size).fill(0)); // 初期状態のボード
+  const solution = generateRandomBoard(size); // ランダムなソリューションを生成
+
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      if (solution[y][x] === 1) {
+        clickHandler(board, x, y); // ソリューションのセルが1ならクリック操作を実行
+      }
+    }
+  }
+  return board; // 解が存在する初期状態のボードを返す
+};
+
+const clickHandler = (board: number[][], x: number, y: number) => {
+  const crossDirects = [
+    [1, 0], // 右
+    [0, 1], // 下
+    [-1, 0], // 左
+    [0, -1], // 上
+  ];
+
+  board[y][x] = board[y][x] === 0 ? 1 : 0; // セルの状態を反転
+
+  for (const [dx, dy] of crossDirects) {
+    const newX = x + dx;
+    const newY = y + dy;
+
+    if (board[newY]?.[newX] !== undefined) {
+      board[newY][newX] = board[newY][newX] === 0 ? 1 : 0; // 隣接セルの状態を反転
+    }
+  }
+};
+
 const Home = () => {
   const [boardSize, setBoardSize] = useState(2);
   const [isCleared, setIsCleared] = useState(false);
   const [cellColor, setCellColor] = useState('#8de2ff');
-  const [randomBoard, setRandomBoard] = useState<number[][]>(generateRandomBoard(boardSize));
+  const [board, setBoard] = useState<number[][]>(generateSolvableBoard(boardSize));
+  const [history, setHistory] = useState<number[][][]>([]);
 
   const pastelColors = [
     '#ffadad',
@@ -41,32 +77,10 @@ const Home = () => {
     return pastelColors[randomIndex];
   };
 
-  const generateBoard = (x: number, y: number, fill: number) =>
-    Array.from({ length: y }, () => Array.from({ length: x }, () => fill));
-
-  const [board, setBoard] = useState<number[][]>(generateBoard(boardSize, boardSize, 0));
-  const [history, setHistory] = useState<number[][][]>([]);
-
-  const clickHandler = (x: number, y: number) => {
+  const clickHandlerWrapper = (x: number, y: number) => {
     if (isCleared) return;
     const newBoard = structuredClone(board);
-    const crossDirects = [
-      [1, 0], // 右
-      [0, 1], // 下
-      [-1, 0], // 左
-      [0, -1], // 上
-    ];
-
-    newBoard[y][x] = newBoard[y][x] === 0 ? 1 : 0;
-
-    for (const [dx, dy] of crossDirects) {
-      const newX = x + dx;
-      const newY = y + dy;
-
-      if (newBoard[newY]?.[newX] !== undefined) {
-        newBoard[newY][newX] = newBoard[newY][newX] === 0 ? 1 : 0;
-      }
-    }
+    clickHandler(newBoard, x, y);
     setHistory([...history, board]);
     setBoard(newBoard);
     console.table(newBoard);
@@ -87,18 +101,17 @@ const Home = () => {
 
   const changeBoardSize = (size: number) => {
     const color = getRandomColor();
-    const newRandomBoard = generateRandomBoard(size);
+    const newBoard = generateSolvableBoard(size);
     setBoardSize(size);
-    setBoard(generateBoard(size, size, 0));
+    setBoard(newBoard);
     setIsCleared(false);
     setCellColor(color);
-    setRandomBoard(newRandomBoard);
     document.documentElement.style.setProperty('--bubble-color', color);
   };
 
   const resetBoard = () => {
     const color = getRandomColor();
-    setBoard(generateBoard(boardSize, boardSize, 0));
+    setBoard(generateSolvableBoard(boardSize));
     setIsCleared(false);
     setCellColor(color);
     document.documentElement.style.setProperty('--bubble-color', color);
@@ -106,17 +119,11 @@ const Home = () => {
 
   const randomizeBoard = () => {
     const color = getRandomColor();
-    const newBoard = generateRandomBoard(boardSize);
+    const newBoard = generateSolvableBoard(boardSize);
     setBoard(newBoard);
-    setRandomBoard(newBoard); // ここでランダムボードを保存
     setIsCleared(false);
     setCellColor(color);
     document.documentElement.style.setProperty('--bubble-color', color);
-  };
-
-  const applyRandomBoard = () => {
-    setBoard(structuredClone(randomBoard));
-    setIsCleared(false);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, size: number) => {
@@ -221,12 +228,6 @@ const Home = () => {
           >
             <p>Next Random</p>
           </button>
-          <button
-            className={`${styles.navButton} ${styles.bubblyButton} ${styles.randomButton}`}
-            onClick={applyRandomBoard}
-          >
-            <p>Reset Random</p>
-          </button>
         </div>
 
         <div className={`${styles.boardstyle} ${isCleared ? styles.cleared : ''}`}>
@@ -235,7 +236,7 @@ const Home = () => {
               <div
                 className={styles.cellstyle}
                 key={`${x}-${y}`}
-                onClick={() => clickHandler(x, y)}
+                onClick={() => clickHandlerWrapper(x, y)}
                 style={{
                   width: `${100 / boardSize}%`,
                   height: `${100 / boardSize}%`,
