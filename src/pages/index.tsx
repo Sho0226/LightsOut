@@ -49,6 +49,7 @@ const Home = () => {
   const [cellColor, setCellColor] = useState('#8de2ff');
   const [board, setBoard] = useState<number[][]>(generateSolvableBoard(boardSize));
   const [history, setHistory] = useState<number[][][]>([]);
+  const [randomBoard, setRandomBoard] = useState<number[][]>(generateRandomBoard(boardSize));
 
   const pastelColors = [
     '#ffadad',
@@ -106,6 +107,7 @@ const Home = () => {
     setBoard(newBoard);
     setIsCleared(false);
     setCellColor(color);
+    setRandomBoard(generateRandomBoard(size));
     document.documentElement.style.setProperty('--bubble-color', color);
   };
 
@@ -121,9 +123,15 @@ const Home = () => {
     const color = getRandomColor();
     const newBoard = generateSolvableBoard(boardSize);
     setBoard(newBoard);
+    setRandomBoard(newBoard); // ここでランダムボードを保存
     setIsCleared(false);
     setCellColor(color);
     document.documentElement.style.setProperty('--bubble-color', color);
+  };
+
+  const applyRandomBoard = () => {
+    setBoard(structuredClone(randomBoard));
+    setIsCleared(false);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, size: number) => {
@@ -227,6 +235,12 @@ const Home = () => {
             onClick={randomizeBoard}
           >
             <p>Next Random</p>
+          </button>
+          <button
+            className={`${styles.navButton} ${styles.bubblyButton} ${styles.randomButton}`}
+            onClick={applyRandomBoard}
+          >
+            <p>Reset Random</p>
           </button>
         </div>
 
