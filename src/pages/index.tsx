@@ -112,11 +112,8 @@ const Home = () => {
   };
 
   const resetBoard = () => {
-    const color = getRandomColor();
     setBoard(Array.from({ length: boardSize }, () => Array(boardSize).fill(0))); // 全て消灯状態のボードをセット
     setIsCleared(false);
-    setCellColor(color);
-    document.documentElement.style.setProperty('--bubble-color', color);
   };
 
   const randomizeBoard = () => {
@@ -158,7 +155,6 @@ const Home = () => {
       );
     }
 
-    // Cleanup event listeners on component unmount
     return () => {
       for (let i = 0; i < bubblyButtons.length; i++) {
         bubblyButtons[i].removeEventListener(
