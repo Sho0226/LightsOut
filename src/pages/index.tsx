@@ -38,7 +38,7 @@ const clickHandler = (board: number[][], x: number, y: number) => {
     const newY = y + dy;
 
     if (board[newY]?.[newX] !== undefined) {
-      board[newY][newX] = board[newY][newX] === 0 ? 1 : 0; // 隣接セルの状態を反転
+      board[newY][newX] = board[newY][newX] === 0 ? 1 : 0;
     }
   }
 };
