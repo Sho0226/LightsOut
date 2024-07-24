@@ -166,69 +166,24 @@ const Home = () => {
     };
   }, []);
 
+  const buttonSizes = [2, 3, 4, 5, 6, 7, 8, 9, 10, 100];
+
   return (
     <div className={styles.container}>
       <div className={styles.topstyle}>
-        <button
-          className={`${styles.navButton} ${styles.bubblyButton}`}
-          onClick={(e) => handleClick(e, 2)}
-        >
-          <p>2x2</p>
-        </button>
-        <button
-          className={`${styles.navButton} ${styles.bubblyButton}`}
-          onClick={(e) => handleClick(e, 3)}
-        >
-          <p>3x3</p>
-        </button>
-        <button
-          className={`${styles.navButton} ${styles.bubblyButton}`}
-          onClick={(e) => handleClick(e, 4)}
-        >
-          <p>4x4</p>
-        </button>
-        <button
-          className={`${styles.navButton} ${styles.bubblyButton}`}
-          onClick={(e) => handleClick(e, 5)}
-        >
-          <p>5x5</p>
-        </button>
-        <button
-          className={`${styles.navButton} ${styles.bubblyButton}`}
-          onClick={(e) => handleClick(e, 6)}
-        >
-          <p>6x6</p>
-        </button>
-        <button
-          className={`${styles.navButton} ${styles.bubblyButton}`}
-          onClick={(e) => handleClick(e, 7)}
-        >
-          <p>7x7</p>
-        </button>
-        <button
-          className={`${styles.navButton} ${styles.bubblyButton}`}
-          onClick={(e) => handleClick(e, 8)}
-        >
-          <p>8x8</p>
-        </button>
-        <button
-          className={`${styles.navButton} ${styles.bubblyButton}`}
-          onClick={(e) => handleClick(e, 9)}
-        >
-          <p>9x9</p>
-        </button>
-        <button
-          className={`${styles.navButton} ${styles.bubblyButton}`}
-          onClick={(e) => handleClick(e, 10)}
-        >
-          <p>10x10</p>
-        </button>
-        <button
-          className={`${styles.navButton} ${styles.bubblyButton}`}
-          onClick={(e) => handleClick(e, 100)}
-        >
-          <p>100x100</p>
-        </button>
+        <>
+          {buttonSizes.map((size) => (
+            <button
+              key={size}
+              className={`${styles.navButton} ${styles.bubblyButton}`}
+              onClick={(e) => handleClick(e, size)}
+            >
+              <p>
+                {size}x{size}
+              </p>
+            </button>
+          ))}
+        </>
       </div>
       <div className={styles.boardContainer}>
         <div className={styles.leftContainer}>
