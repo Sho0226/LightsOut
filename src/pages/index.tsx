@@ -1,38 +1,34 @@
 import { useEffect, useState } from 'react';
 import styles from './index.module.css';
 
-// generateRandomBoard関数をコンポーネントの外に移動
 const generateRandomBoard = (size: number): number[][] => {
   return Array.from({ length: size }, () =>
     Array.from({ length: size }, () => Math.round(Math.random())),
   );
 };
 
-// 逆操作を行って解を求める
 const generateSolvableBoard = (size: number): number[][] => {
-  const board = Array.from({ length: size }, () => Array(size).fill(0)); // 初期状態のボード
-  const solution = generateRandomBoard(size); // ランダムなソリューションを生成
-
+  const board = Array.from({ length: size }, () => Array(size).fill(0));
+  const solution = generateRandomBoard(size);
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
       if (solution[y][x] === 1) {
-        clickHandler(board, x, y); // ソリューションのセルが1ならクリック操作を実行
+        clickHandler(board, x, y);
       }
     }
   }
-  return board; // 解が存在する初期状態のボードを返す
+  return board;
 };
 
 const clickHandler = (board: number[][], x: number, y: number) => {
   const crossDirects = [
-    [1, 0], // 右
-    [0, 1], // 下
-    [-1, 0], // 左
-    [0, -1], // 上
+    [1, 0],
+    [0, 1],
+    [-1, 0],
+    [0, -1],
   ];
 
-  board[y][x] = board[y][x] === 0 ? 1 : 0; // セルの状態を反転
-
+  board[y][x] = board[y][x] === 0 ? 1 : 0;
   for (const [dx, dy] of crossDirects) {
     const newX = x + dx;
     const newY = y + dy;
@@ -95,7 +91,7 @@ const Home = () => {
     if (isCleared) return;
     if (history.length > 0) {
       const lastBoard = history[history.length - 1];
-      setHistory(history.slice(0, history.length - 1)); // 履歴から最後の状態を削除
+      setHistory(history.slice(0, history.length - 1));
       setBoard(lastBoard);
     }
   };
@@ -112,7 +108,7 @@ const Home = () => {
   };
 
   const resetBoard = () => {
-    setBoard(Array.from({ length: boardSize }, () => Array(boardSize).fill(0))); // 全て消灯状態のボードをセット
+    setBoard(Array.from({ length: boardSize }, () => Array(boardSize).fill(0)));
     setIsCleared(false);
   };
 
@@ -120,7 +116,7 @@ const Home = () => {
     const color = getRandomColor();
     const newBoard = generateSolvableBoard(boardSize);
     setBoard(newBoard);
-    setRandomBoard(newBoard); // ここでランダムボードを保存
+    setRandomBoard(newBoard);
     setIsCleared(false);
     setCellColor(color);
     document.documentElement.style.setProperty('--bubble-color', color);
@@ -139,8 +135,8 @@ const Home = () => {
   const animateButton = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
     const target = e.currentTarget;
-    target.classList.remove(styles.animate); // Reset animation
-    void target.offsetWidth; // Trigger reflow to restart animation
+    target.classList.remove(styles.animate);
+    void target.offsetWidth;
     target.classList.add(styles.animate);
   };
 

@@ -366,6 +366,24 @@
   }
 }
 
+.cursor {
+  position: fixed;
+  top: -5px;
+  left: -5px;
+  z-index: 1000;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  background: rgb(0 0 0 / 70%);
+  border-radius: 50%;
+  transition:
+    width 0.5s,
+    height 0.5s,
+    top 0.5s,
+    left 0.5s;
+  transform: translate(0, 0);
+}
+
 @media (aspect-ratio <= 1/1) {
   .container {
     flex-direction: column;
